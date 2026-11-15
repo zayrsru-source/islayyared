@@ -28,7 +28,8 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--blanco);color:var(--vino);font:400 17px/1.6 var(--f-txt);overflow-x:hidden}
+body{margin:0;background:var(--blanco);color:var(--vino);font:400 17px/1.6 var(--f-txt);overflow-x:hidden;overflow-x:clip}
+html{overflow-x:hidden;overflow-x:clip}
 h1,h2,h3,h4,p,ul,figure{margin:0}
 ul{padding:0;list-style:none}
 a{color:inherit}
@@ -85,13 +86,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav a:hover{background:var(--rosa-claro)}
 .nav a[aria-current="page"]{background:var(--vino);color:var(--blanco)}
 .nav .btn{padding:12px 18px;font-size:15px;margin-left:6px}
-@media (max-width:780px){
-  .top .w{gap:8px}
-  .nav{margin-left:0;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-  .nav::-webkit-scrollbar{display:none}
-  .nav a{padding:10px 12px;font-size:14px}
-  .nav .btn{margin-left:auto}
-}
+.menu-btn{display:none}
 
 /* brand marks (del manual) */
 .bub{display:block;width:100%;height:auto;overflow:visible}
@@ -348,6 +343,52 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 .chbtn{align-self:flex-start;padding:12px 18px;font-size:15px}
 .mini{font-size:13px;color:var(--vino-70);text-decoration:underline;text-underline-offset:3px}
 .mini:hover{color:var(--rosa)}
+
+/* v1.3: celular */
+@media (max-width:860px){
+  .top .w{flex-wrap:nowrap;justify-content:space-between;gap:12px;padding-block:10px}
+  .home{font-size:17px}
+  .stackl{flex-direction:row;gap:.35em}
+  .stackl .bk{width:1.9em}
+  .menu-btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--vino);color:var(--blanco);padding:11px 16px;font:700 15px/1 var(--f-txt);cursor:pointer;flex:none}
+  .mb-lines{display:grid;gap:3px;width:16px}
+  .mb-lines i{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .3s var(--e-suave),opacity .2s}
+  .menu-btn[aria-expanded="true"] .mb-lines i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] .mb-lines i:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] .mb-lines i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;margin:0;flex-direction:column;align-items:stretch;gap:4px;background:var(--blanco);border-bottom:1.5px solid var(--linea);box-shadow:0 24px 40px -24px rgba(110,30,50,.45);padding-block:10px 18px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));max-height:calc(100dvh - 70px);overflow-y:auto}
+  .nav.open{display:flex;animation:rise .45s var(--e-caida) both}
+  .nav a{font-size:18px;padding:15px 16px;border-radius:16px}
+  .nav .btn{margin:8px 0 0;justify-content:center;font-size:17px;padding:16px 20px}
+  .nav a.btn{color:var(--blanco)}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .band>.w{padding-block:52px}
+  .hero .w{padding-block:36px 48px;gap:28px}
+  .reveal{font-size:min(15vw,112px)}
+  .hero .copy{gap:20px}
+  .tag{font-size:40px;padding:10px 24px 14px}
+  .btns{flex-direction:column;align-items:stretch}
+  .btns .btn{justify-content:center}
+  .hero .art.photo{max-width:min(100%,320px);justify-self:center}
+  .hero .art.photo .badge{right:-2px;width:26%}
+  .cover-wrap{padding:16px 16px 48px}
+  .cover-wrap .stk{right:auto;left:16px;bottom:6px}
+  .fm{padding:22px 18px}
+  .fm .btn{align-self:stretch!important;justify-content:center;text-align:center}
+  .way{padding:16px;gap:12px}
+  .social{gap:6px}
+  .chan{grid-template-columns:1fr}
+  .chbtn{align-self:stretch;justify-content:center}
+  .card{padding:22px}
+  .pers{padding:22px}
+  .duo-ph img{min-height:0;max-height:none;aspect-ratio:4/5}
+  .big50{font-size:150px}
+  .sparks{gap:6px}
+  .foot .w{flex-direction:column;gap:24px}
+  .foot .fine{flex-direction:column;gap:6px}
+}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
@@ -370,7 +411,8 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 <header class="top">
   <div class="w">
     <a class="home" href="#inicio" aria-label="IsLA & YaRED, ir a inicio"><span data-stackl="pos"></span></a>
-    <nav class="nav" aria-label="Secciones">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="mb-lines" aria-hidden="true"><i></i><i></i><i></i></span><span class="mb-txt">Menú</span></button>
+    <nav class="nav" id="menu" aria-label="Secciones">
       <a href="#inicio" data-nav="inicio">Inicio</a>
       <a href="#nosotras" data-nav="nosotras">Nosotras</a>
       <a href="#libro" data-nav="libro">Nuestro libro</a>
@@ -837,6 +879,14 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
       window.scrollTo({top:0,behavior:'instant'});
     }
   }
+
+  /* ---- menú en celular ---- */
+  const mb=document.querySelector('.menu-btn'), menu=document.getElementById('menu');
+  const setMenu=open=>{menu.classList.toggle('open',open);mb.setAttribute('aria-expanded',open);mb.querySelector('.mb-txt').textContent=open?'Cerrar':'Menú';};
+  mb.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){setMenu(false);mb.focus();}});
+  document.addEventListener('click',e=>{if(menu.classList.contains('open')&&!e.target.closest('.top'))setMenu(false);});
   window.addEventListener('hashchange',route);
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&a.getAttribute('href')===location.hash){e.preventDefault();route();}});
   route();
