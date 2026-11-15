@@ -308,8 +308,6 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 .blurb{margin:0;background:var(--rosa-claro);border-radius:28px 28px 28px 8px;padding:26px 28px;display:flex;flex-direction:column;gap:14px}
 .blurb p{font-size:17px;line-height:1.65}
 .blurb footer{font:700 13px/1.2 var(--f-txt);letter-spacing:.12em;text-transform:uppercase;color:var(--rosa)}
-.copybtn{align-self:flex-start;border:2px solid var(--rosa);background:transparent;color:var(--rosa);border-radius:999px;padding:8px 14px;font:700 13px/1 var(--f-txt);cursor:pointer}
-.copybtn:hover{background:var(--rosa);color:var(--blanco)}
 .sel{user-select:all;-webkit-user-select:all;overflow-wrap:anywhere}
 .foot a{color:var(--rosa-claro);text-decoration:none}
 .foot a:hover{color:var(--naranja)}
@@ -347,6 +345,9 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 .ab button[aria-pressed="true"]{background:var(--vino);color:var(--blanco)}
 .soon{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
 
+.chbtn{align-self:flex-start;padding:12px 18px;font-size:15px}
+.mini{font-size:13px;color:var(--vino-70);text-decoration:underline;text-underline-offset:3px}
+.mini:hover{color:var(--rosa)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
@@ -362,6 +363,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   <symbol id="foto-l" viewBox="0 0 120 90" preserveAspectRatio="xMidYMid slice"><rect width="120" height="90" fill="#EEEDEF"/><circle cx="96" cy="22" r="11" fill="#F8A43A"/><rect y="72" width="120" height="18" fill="#D4D2D6"/><circle cx="58" cy="40" r="12" fill="#6E1E32"/><path d="M34 90Q34 56 58 56Q82 56 82 90Z" fill="#6E1E32"/></symbol>
   <symbol id="foto-r" viewBox="0 0 120 90" preserveAspectRatio="xMidYMid slice"><rect width="120" height="90" fill="#F9E2EC"/><circle cx="24" cy="22" r="11" fill="#F8A43A"/><rect y="72" width="120" height="18" fill="#D4D2D6"/><circle cx="62" cy="40" r="12" fill="#D83B7D"/><path d="M38 90Q38 56 62 56Q86 56 86 90Z" fill="#D83B7D"/></symbol>
   <symbol id="wa" viewBox="0 0 16 16"><path d="M8 1.6c3.6 0 6.4 2.5 6.4 5.6S11.6 12.8 8 12.8c-.7 0-1.4-.1-2-.3L2.4 14l1-2.9C2.3 10.1 1.6 8.7 1.6 7.2 1.6 4.1 4.4 1.6 8 1.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="mail" viewBox="0 0 16 16"><rect x="1.8" y="3.2" width="12.4" height="9.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.4 4.4 8 8.8l5.6-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>
 
@@ -734,8 +736,8 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
         <p class="eb">Dónde encontrarnos</p>
         <h2 class="h2">Escríbenos por <em>donde más te guste</em>.</h2>
         <div class="chan">
-          <div><span class="lbl muted">WhatsApp</span><a class="lnk" href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21" target="_blank" rel="noopener">+52 1 81 3407 5051</a></div>
-          <div><span class="lbl muted">Correo</span><b class="sel" id="mail">islayyared@gmail.com</b><button class="copybtn" type="button" data-copy="islayyared@gmail.com">Copiar correo</button></div>
+          <div><span class="lbl muted">WhatsApp</span><b>+52 1 81 3407 5051</b><a class="btn btn-r chbtn" href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Me%20gustar%C3%ADa%20ponerme%20en%20contacto%20con%20ustedes." target="_blank" rel="noopener">Enviar mensaje <svg><use href="#wa"/></svg></a></div>
+          <div><span class="lbl muted">Correo</span><b class="sel">islayyared@gmail.com</b><a class="btn btn-r chbtn" href="mailto:islayyared@gmail.com?subject=Quiero%20ponerme%20en%20contacto%20con%20La%20RED&amp;body=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%0A%0AMe%20gustar%C3%ADa%20ponerme%20en%20contacto%20con%20ustedes.%0A%0AMi%20nombre%20es%3A%20%0ALes%20escribo%20por%3A%20%0A%0A">Escribir correo <svg><use href="#mail"/></svg></a><a class="mini" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=islayyared@gmail.com&amp;su=Quiero%20ponerme%20en%20contacto%20con%20La%20RED&amp;body=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%0A%0AMe%20gustar%C3%ADa%20ponerme%20en%20contacto%20con%20ustedes.%0A%0AMi%20nombre%20es%3A%20%0ALes%20escribo%20por%3A%20%0A%0A" target="_blank" rel="noopener">¿Usas Gmail en la compu? Ábrelo aquí</a></div>
           <div><span class="lbl muted">Instagram</span><a class="lnk" href="https://www.instagram.com/islayyared/" target="_blank" rel="noopener">@islayyared</a></div>
           <div><span class="lbl muted">TikTok</span><a class="lnk" href="https://www.tiktok.com/@islayyared" target="_blank" rel="noopener">@islayyared</a></div>
           <div><span class="lbl muted">Facebook</span><a class="lnk" href="https://www.facebook.com/profile.php?id=61596671005289" target="_blank" rel="noopener">Isla y Yared</a></div>
@@ -749,7 +751,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
           <select id="c-tema" name="tema"><option>Alianza con una marca</option><option>Invitación a un evento</option><option>Prensa o entrevista</option><option>Pedido del libro</option><option>Tema para el blog</option><option>Solo quiero saludar</option></select></div>
         <div class="fld"><label for="c-msg">Mensaje</label><textarea id="c-msg" name="mensaje" placeholder="Cuéntanos con calma."></textarea></div>
         <p class="err" data-err hidden></p>
-        <a class="btn btn-r" data-send href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21" target="_blank" rel="noopener" style="align-self:flex-start">Enviar por WhatsApp <svg><use href="#wa"/></svg></a>
+        <a class="btn btn-r" data-send href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Me%20gustar%C3%ADa%20ponerme%20en%20contacto%20con%20ustedes." target="_blank" rel="noopener" style="align-self:flex-start">Enviar por WhatsApp <svg><use href="#wa"/></svg></a>
         <p class="note">Se abre WhatsApp con tu mensaje listo. Solo tienes que tocar enviar.</p>
       </form>
     </div>
@@ -771,8 +773,8 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
       <a href="https://www.instagram.com/islayyared/" target="_blank" rel="noopener">Instagram @islayyared</a>
       <a href="https://www.tiktok.com/@islayyared" target="_blank" rel="noopener">TikTok @islayyared</a>
       <a href="https://www.facebook.com/profile.php?id=61596671005289" target="_blank" rel="noopener">Facebook Isla y Yared</a>
-      <a href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21" target="_blank" rel="noopener">WhatsApp +52 1 81 3407 5051</a>
-      <span class="sel">islayyared@gmail.com</span>
+      <a href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Me%20gustar%C3%ADa%20ponerme%20en%20contacto%20con%20ustedes." target="_blank" rel="noopener">WhatsApp +52 1 81 3407 5051</a>
+      <a href="mailto:islayyared@gmail.com?subject=Quiero%20ponerme%20en%20contacto%20con%20La%20RED&amp;body=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%0A%0AMe%20gustar%C3%ADa%20ponerme%20en%20contacto%20con%20ustedes.%0A%0AMi%20nombre%20es%3A%20%0ALes%20escribo%20por%3A%20%0A%0A">Correo islayyared@gmail.com</a>
     </div>
     <div class="fine"><span>Nosotras somos IsLA &amp; YaRED.</span><span>© 2026 La RED</span></div>
   </div>
@@ -872,14 +874,6 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     f.addEventListener('submit',e=>{e.preventDefault();send.focus();});
   });
 
-  /* ---- copiar correo ---- */
-  document.querySelectorAll('[data-copy]').forEach(b=>{
-    b.addEventListener('click',()=>{
-      const t=b.dataset.copy, done=()=>{b.textContent='Copiado ✦';setTimeout(()=>b.textContent='Copiar correo',2000)};
-      const pick=()=>{const el=document.getElementById('mail');const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selecciónalo y cópialo';};
-      try{navigator.clipboard.writeText(t).then(done,pick)}catch(e){pick()}
-    });
-  });
 })();
 </script>
 
