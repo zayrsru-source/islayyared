@@ -4,7 +4,7 @@ Sitio web de La RED: Inicio, Nosotras, Nuestro libro, Blog y Contacto.
 
 - Todo el sitio vive en `index.html`; las fotos y la portada están en `img/`.
 - Las secciones se abren con `#inicio`, `#nosotras`, `#libro`, `#blog`, `#contacto` y `#unete`.
-- Los formularios y botones abren WhatsApp (+52 81 8402 3044) con el mensaje ya escrito.
+- Los formularios y botones abren WhatsApp (+52 1 81 3407 5051) con el mensaje ya escrito.
 
 ## Publicarlo con GitHub Pages
 1. En el repositorio: **Settings → Pages**.
