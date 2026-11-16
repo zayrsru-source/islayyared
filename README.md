@@ -20,3 +20,4 @@ En `index.html`, busca `NUEVA PUBLICACIÓN`. Copia un `<article class="post">` c
 - Los párrafos dentro de `post-bd`. El primer párrafo se ve grande, como titular.
 
 La liga directa a cada publicación es `https://islayyared.com/#post-N`.
+- Cada publicación tiene el botón **En tus historias**: arma una imagen vertical de 1080×1920 con el titular para subirla a historias de Instagram y agregarle el sticker de Enlace.

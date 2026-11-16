@@ -434,6 +434,32 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   .pa{padding:11px 10px}
   .pa-tag{padding-right:8px}
 }
+
+/* v1.6: imagen para historias */
+[hidden]{display:none!important}
+.pa-st{color:var(--rosa)}
+.sheet{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet[hidden]{display:none}
+.sh-bg{position:absolute;inset:0;background:rgba(110,30,50,.55);backdrop-filter:blur(3px)}
+.sh-box{position:relative;background:var(--blanco);border-radius:28px;width:min(100%,760px);max-height:100%;overflow:auto;padding:20px 22px 22px;box-shadow:0 30px 80px -30px rgba(110,30,50,.8);animation:rise .5s var(--e-caida) both}
+.sh-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.sh-tt{font:400 40px/1 var(--f-tit)}
+.sh-x{border:0;background:var(--niebla);color:var(--vino);width:42px;height:42px;border-radius:50%;font:400 28px/1 var(--f-txt);cursor:pointer;flex:none}
+.sh-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:22px;align-items:start}
+.sh-prev{position:relative;aspect-ratio:9/16;max-width:100%;border-radius:18px;overflow:hidden;background:var(--vino)}
+.sh-prev img{display:block;width:100%;height:100%;object-fit:cover}
+.sh-load{position:absolute;inset:0;display:grid;place-items:center;color:var(--blanco);font-size:15px;text-align:center;padding:12px}
+.sh-steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:18px;font-size:16px;line-height:1.5}
+.sh-steps li::marker{font:italic 400 22px var(--f-tit);color:var(--rosa)}
+.sh-b{display:flex;margin-top:10px;justify-content:center;width:100%}
+.sh-b[disabled]{opacity:.5;cursor:wait}
+.sh-note{font-size:14px;color:var(--vino-70);margin-top:12px}
+@media (max-width:600px){
+  .sh-box{padding:16px 16px 18px;border-radius:24px}
+  .sh-grid{grid-template-columns:1fr}
+  .sh-prev{width:min(62%,240px);margin:0 auto}
+  .post-ft .pa{padding:11px 8px}
+}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
@@ -455,6 +481,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   <symbol id="wa" viewBox="0 0 16 16"><path d="M8 1.6c3.6 0 6.4 2.5 6.4 5.6S11.6 12.8 8 12.8c-.7 0-1.4-.1-2-.3L2.4 14l1-2.9C2.3 10.1 1.6 8.7 1.6 7.2 1.6 4.1 4.4 1.6 8 1.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="mail" viewBox="0 0 16 16"><rect x="1.8" y="3.2" width="12.4" height="9.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.4 4.4 8 8.8l5.6-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="share" viewBox="0 0 16 16"><path d="M8 10V2M5 5l3-3 3 3M3 8.5V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="story" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3.2 2"/><path d="M8 5.2v5.6M5.2 8h5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>
 
@@ -811,7 +838,8 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
             <p>Bienvenidos a La RED. Somos IsLA &amp; YaRED, dos amigas, y este es nuestro primer blog. Sí, también es una primera vez.</p>
           </div>
           <footer class="post-ft">
-            <button class="pa" type="button" data-share><svg><use href="#share"/></svg><span>Compartir</span></button>
+            <button class="pa pa-st" type="button" data-story><svg><use href="#story"/></svg><span>En tus historias</span></button>
+            <button class="pa" type="button" data-share><svg><use href="#share"/></svg><span>Liga</span></button>
             <span class="pa-tag">#PrimerasVeces</span>
           </footer>
         </article>
@@ -893,6 +921,24 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 
 </main>
 
+
+<div class="sheet" id="story-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="st-tt">
+  <div class="sh-bg" data-close></div>
+  <div class="sh-box">
+    <div class="sh-top"><p class="sh-tt" id="st-tt">Tu historia de La RED</p><button class="sh-x" type="button" data-close aria-label="Cerrar">×</button></div>
+    <div class="sh-grid">
+      <div class="sh-prev"><img id="st-img" alt="Vista previa de la imagen para historia"><p class="sh-load" id="st-load">Preparando la imagen…</p></div>
+      <div class="sh-side">
+        <ol class="sh-steps">
+          <li><b>Copia la liga</b> de la publicación.<button class="btn btn-o sh-b" type="button" id="st-copy"><svg><use href="#share"/></svg><span>Copiar liga</span></button></li>
+          <li><b>Comparte la imagen</b> y en Instagram elige <b>Historia</b>.<button class="btn btn-r sh-b" type="button" id="st-share" disabled><svg><use href="#story"/></svg><span>Compartir imagen</span></button><a class="btn btn-o sh-b" id="st-save" download="la-red-historia.png" hidden><span>Guardar imagen</span></a></li>
+          <li>En la historia toca el ícono de <b>stickers</b>, elige <b>Enlace</b>, pega la liga y ponlo sobre el espacio blanco. Al tocarlo, tus seguidores llegan a la publicación.</li>
+        </ol>
+        <p class="sh-note" id="st-note"></p>
+      </div>
+    </div>
+  </div>
+</div>
 <footer class="foot">
   <div class="w">
     <div class="stack" style="gap:14px">
@@ -1029,11 +1075,106 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     const b=p.querySelector('[data-share]'); if(!b) return;
     b.addEventListener('click',async()=>{
       const url=location.origin+location.pathname+'#'+p.id, lbl=b.querySelector('span');
-      const say=m=>{lbl.textContent=m;setTimeout(()=>lbl.textContent='Compartir',2200)};
+      const say=m=>{lbl.textContent=m;setTimeout(()=>lbl.textContent='Liga',2200)};
       if(navigator.share){try{await navigator.share({title:t+' · La RED',text:t,url});return}catch(e){if(e&&e.name==='AbortError')return}}
       try{await navigator.clipboard.writeText(url);say('Liga copiada ✦')}catch(e){say('Copia la liga de arriba');history.replaceState(null,'','#'+p.id)}
     });
   });
+
+  /* ---- blog: imagen para historias de Instagram ---- */
+  const sheet=document.getElementById('story-sheet');
+  const stImg=document.getElementById('st-img'), stLoad=document.getElementById('st-load');
+  const stShare=document.getElementById('st-share'), stSave=document.getElementById('st-save'), stCopy=document.getElementById('st-copy'), stNote=document.getElementById('st-note');
+  let stFile=null, stUrl='', stPost=null, stObj='';
+  const avatar=new Image(); avatar.src='img/perfil-islayyared.jpg';
+  const PB=[ 'M50 38a16 16 0 1 0 -32 0a16 16 0 1 0 32 0Z M24.8 51.1 18 63 31.2 53.8Z',
+             'M118 80a16 16 0 1 0 -32 0a16 16 0 1 0 32 0Z M111.2 93.1 118 105 104.8 95.8Z',
+             'M104 18Q104 28 114 28Q104 28 104 38Q104 28 94 28Q104 28 104 18Z',
+             'M38 90Q38 96 44 96Q38 96 38 102Q38 96 32 96Q38 96 38 90Z'].map(d=>new Path2D(d));
+  function wrap(ctx,text,maxW){const words=text.split(/\s+/),lines=[];let l='';for(const w of words){const t=l?l+' '+w:w;if(ctx.measureText(t).width>maxW&&l){lines.push(l);l=w}else l=t}if(l)lines.push(l);return lines}
+  function bubbles(ctx,x,y,s){ // isotipo: vino, rosa, cruce naranja, chispa blanca
+    ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+    const c1=new Path2D('M68 46a28 28 0 1 0 -56 0a28 28 0 1 0 56 0Z M23.9 68.9 16 88 35.1 73.6Z');
+    const c2=new Path2D('M102 46a28 28 0 1 0 -56 0a28 28 0 1 0 56 0Z M90.1 68.9 98 88 78.9 73.6Z');
+    ctx.fillStyle='#6E1E32';ctx.fill(c1);ctx.fillStyle='#FFFFFF';ctx.fill(c2);
+    ctx.save();ctx.clip(new Path2D('M68 46a28 28 0 1 0 -56 0a28 28 0 1 0 56 0Z'));ctx.fillStyle='#F8A43A';ctx.beginPath();ctx.arc(74,46,28,0,7);ctx.fill();ctx.restore();
+    ctx.fillStyle='#FFFFFF';ctx.fill(new Path2D('M57 36Q57 46 67 46Q57 46 57 56Q57 46 47 46Q57 46 57 36Z'));
+    ctx.restore();
+  }
+  async function makeStory(p){
+    try{await Promise.all([document.fonts.load('400 100px "Instrument Serif"'),document.fonts.load('italic 400 60px "Instrument Serif"'),document.fonts.load('700 44px "DM Sans"'),document.fonts.load('400 40px "DM Sans"')])}catch(e){}
+    if(!avatar.complete) await new Promise(r=>{avatar.onload=avatar.onerror=r});
+    const W=1080,H=1920,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+    const SER='"Instrument Serif", Georgia, serif', SAN='"DM Sans", system-ui, sans-serif';
+    x.fillStyle='#6E1E32';x.fillRect(0,0,W,H);
+    x.fillStyle='rgba(255,255,255,.08)';
+    for(let ty=-20;ty<H;ty+=224)for(let tx=-30;tx<W;tx+=280){x.save();x.translate(tx,ty);x.scale(2,2);PB.forEach(pp=>x.fill(pp));x.restore()}
+    // cabecera tipo perfil
+    const ax=150,ay=190,ar=74;
+    x.fillStyle='#D83B7D';x.beginPath();x.arc(ax,ay,ar+12,0,7);x.fill();
+    x.fillStyle='#FFFFFF';x.beginPath();x.arc(ax,ay,ar+5,0,7);x.fill();
+    x.save();x.beginPath();x.arc(ax,ay,ar,0,7);x.clip();try{x.drawImage(avatar,ax-ar,ay-ar,ar*2,ar*2)}catch(e){}x.restore();
+    x.fillStyle='#FFFFFF';x.font='700 50px '+SAN;x.textBaseline='alphabetic';x.fillText('Isla y Yared',260,180);
+    x.fillStyle='#F9E2EC';x.font='400 36px '+SAN;
+    const tm=p.querySelector('time'); x.fillText('@islayyared'+(tm?' · '+tm.textContent:''),260,232);
+    // sticker
+    x.save();x.translate(90,370);x.rotate(-.05);x.font='700 38px '+SAN;
+    const tag='Nuevo en el blog ✦', tw=x.measureText(tag).width;
+    x.fillStyle='#F8A43A';x.beginPath();x.roundRect(0,0,tw+64,78,39);x.fill();
+    x.fillStyle='#6E1E32';x.fillText(tag,32,52);x.restore();
+    // titular
+    const paras=[...p.querySelectorAll('.post-bd p')].map(e=>e.textContent.trim());
+    const title=p.dataset.title||paras[0]||'';
+    let fs=104;x.font='400 '+fs+'px '+SER;let L=wrap(x,title,900);
+    while(L.length>6&&fs>72){fs-=6;x.font='400 '+fs+'px '+SER;L=wrap(x,title,900)}
+    let y=560;x.fillStyle='#FFFFFF';
+    L.forEach((ln,i)=>{if(i===L.length-1){x.font='italic 400 '+fs+'px '+SER;x.fillStyle='#F8A43A'}x.fillText(ln,90,y);y+=fs*1.04});
+    // extracto
+    const rest=(paras[0]&&paras[0].includes(title.slice(0,20))?paras.slice(1):paras).join(' ');
+    x.font='400 40px '+SAN;x.fillStyle='#F9E2EC';
+    let E=wrap(x,rest,900);if(E.length>4){E=E.slice(0,4);E[3]=E[3].replace(/\s+\S*$/,'').replace(/[,;:.]+$/,'')+'…'}
+    y+=34;E.forEach(ln=>{x.fillText(ln,90,y);y+=58});
+    // espacio para el sticker de enlace
+    const sy=Math.max(y+70,1290);
+    x.strokeStyle='rgba(255,255,255,.55)';x.lineWidth=4;x.setLineDash([18,14]);
+    x.beginPath();x.roundRect(240,sy,600,150,75);x.stroke();x.setLineDash([]);
+    x.fillStyle='rgba(255,255,255,.75)';x.font='400 34px '+SAN;x.textAlign='center';x.fillText('Toca el enlace y léelo completo',540,sy+88);x.textAlign='left';
+    // pie
+    x.fillStyle='#D83B7D';x.beginPath();x.roundRect(60,1600,960,230,48);x.fill();
+    bubbles(x,96,1640,1.6);
+    x.fillStyle='#FFFFFF';x.font='400 34px '+SAN;x.fillText('Léelo completo en',300,1690);
+    x.font='400 76px '+SER;x.fillText('islayyared.com',300,1772);
+    const blob=await new Promise(r=>c.toBlob(r,'image/png'));
+    return blob;
+  }
+  function openSheet(p){
+    stPost=p; stUrl=location.origin+location.pathname+'#'+p.id; stFile=null;
+    stImg.removeAttribute('src'); stLoad.hidden=false; stShare.disabled=true; stSave.hidden=true; stNote.textContent='';
+    sheet.hidden=false; document.body.style.overflow='hidden'; sheet.querySelector('.sh-x').focus();
+    makeStory(p).then(blob=>{
+      if(stPost!==p||!blob) return;
+      if(stObj) URL.revokeObjectURL(stObj);
+      stObj=URL.createObjectURL(blob); stImg.src=stObj; stLoad.hidden=true;
+      stFile=new File([blob],'la-red-'+p.id+'.png',{type:'image/png'});
+      const canFiles=!!(navigator.canShare&&navigator.canShare({files:[stFile]}));
+      stShare.hidden=!canFiles; stShare.disabled=!canFiles;
+      stSave.href=stObj; stSave.download='la-red-'+p.id+'-historia.png'; stSave.hidden=canFiles;
+      if(!canFiles) stNote.textContent='Desde la computadora no se puede abrir Instagram directo: guarda la imagen, pásala a tu celular y súbela como historia.';
+    });
+  }
+  function closeSheet(){sheet.hidden=true;document.body.style.overflow='';const b=stPost&&stPost.querySelector('[data-story]');if(b)b.focus()}
+  sheet.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeSheet()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeSheet()});
+  stShare.addEventListener('click',async()=>{
+    if(!stFile) return;
+    try{await navigator.share({files:[stFile]})}catch(e){if(!(e&&e.name==='AbortError'))stNote.textContent='No se pudo abrir el menú para compartir. Mantén presionada la imagen para guardarla y súbela desde Instagram.'}
+  });
+  stCopy.addEventListener('click',async()=>{
+    const lbl=stCopy.querySelector('span');
+    try{await navigator.clipboard.writeText(stUrl);lbl.textContent='Liga copiada ✦'}catch(e){lbl.textContent=stUrl.replace(/^https?:\/\//,'')}
+    setTimeout(()=>lbl.textContent='Copiar liga',2600);
+  });
+  document.querySelectorAll('.post [data-story]').forEach(b=>b.addEventListener('click',()=>openSheet(b.closest('.post'))));
   window.addEventListener('hashchange',route);
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&a.getAttribute('href')===location.hash){e.preventDefault();route();}});
   route();
