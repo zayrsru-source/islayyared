@@ -432,7 +432,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   .ph-tag{order:3;margin-left:66px}
   .post-bd{font-size:17px}
   .pa{padding:11px 10px}
-  .pa-tag{margin-left:0;width:100%;padding:4px 10px 6px}
+  .pa-tag{padding-right:8px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
@@ -793,7 +793,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
         <!--
           NUEVA PUBLICACIÓN: copia un <article class="post"> completo y pégalo
           ARRIBA del más reciente. Cambia id (post-2, post-3…), la fecha,
-          la etiqueta y los párrafos. El botón Comentar lleva el título en el mensaje.
+          la etiqueta y los párrafos.
         -->
 
         <article class="post" id="post-1" data-title="¿Cuándo fue la última vez que hiciste algo por primera vez?">
@@ -811,7 +811,6 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
             <p>Bienvenidos a La RED. Somos IsLA &amp; YaRED, dos amigas, y este es nuestro primer blog. Sí, también es una primera vez.</p>
           </div>
           <footer class="post-ft">
-            <a class="pa" data-comment href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Le%C3%AD%20su%20blog%20y%20quiero%20comentarles%3A" target="_blank" rel="noopener"><svg><use href="#wa"/></svg>Comentar</a>
             <button class="pa" type="button" data-share><svg><use href="#share"/></svg><span>Compartir</span></button>
             <span class="pa-tag">#PrimerasVeces</span>
           </footer>
@@ -1026,8 +1025,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 
   /* ---- blog: comentar y compartir ---- */
   document.querySelectorAll('.post').forEach(p=>{
-    const t=p.dataset.title||'', c=p.querySelector('[data-comment]');
-    if(c) c.href='https://wa.me/5218134075051?text='+encodeURIComponent('¡Hola, IsLA & YaRED! Leí su blog "'+t+'" y quiero comentarles: ');
+    const t=p.dataset.title||'';
     const b=p.querySelector('[data-share]'); if(!b) return;
     b.addEventListener('click',async()=>{
       const url=location.origin+location.pathname+'#'+p.id, lbl=b.querySelector('span');
