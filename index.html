@@ -389,6 +389,15 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   .foot .w{flex-direction:column;gap:24px}
   .foot .fine{flex-direction:column;gap:6px}
 }
+
+/* v1.4: globos animados en Inicio */
+.pat.live{overflow:hidden}
+.pat.live .gb{transform-box:fill-box;transform-origin:50% 100%;animation:bob var(--d,5s) ease-in-out var(--dl,0s) infinite alternate}
+.pat.live .gs{transform-box:fill-box;transform-origin:center;animation:twk var(--d,3s) ease-in-out var(--dl,0s) infinite}
+.pat.live .gp{transform-box:fill-box;transform-origin:50% 100%;animation:pop .9s var(--e-caida) var(--pd,0s) both}
+@keyframes bob{0%{transform:translateY(3px) rotate(0)}100%{transform:translateY(-13px) rotate(var(--r,4deg))}}
+@keyframes twk{0%,100%{transform:scale(.55) rotate(0);opacity:.35}50%{transform:scale(1.25) rotate(45deg);opacity:1}}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
@@ -396,6 +405,10 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <g id="pb"><circle cx="34" cy="38" r="16"/><polygon points="24.8,51.1 18,63 31.2,53.8"/><circle cx="102" cy="80" r="16"/><polygon points="111.2,93.1 118,105 104.8,95.8"/><path d="M104 18Q104 28 114 28Q104 28 104 38Q104 28 94 28Q104 28 104 18Z"/><path d="M38 90Q38 96 44 96Q38 96 38 102Q38 96 32 96Q38 96 38 90Z"/></g>
+  <g id="pb-g1"><circle cx="34" cy="38" r="16"/><polygon points="24.8,51.1 18,63 31.2,53.8"/></g>
+  <g id="pb-g2"><circle cx="102" cy="80" r="16"/><polygon points="111.2,93.1 118,105 104.8,95.8"/></g>
+  <path id="pb-s1" d="M104 18Q104 28 114 28Q104 28 104 38Q104 28 94 28Q104 28 104 18Z"/>
+  <path id="pb-s2" d="M38 90Q38 96 44 96Q38 96 38 102Q38 96 32 96Q38 96 38 90Z"/>
   <pattern id="pat-r" width="140" height="112" patternUnits="userSpaceOnUse"><use href="#pb" style="fill:#FFFFFF;fill-opacity:.16"/></pattern>
   <pattern id="pat-n" width="140" height="112" patternUnits="userSpaceOnUse"><use href="#pb" style="fill:#FFFFFF;fill-opacity:.3"/></pattern>
   <pattern id="pat-l" width="140" height="112" patternUnits="userSpaceOnUse"><use href="#pb" style="fill:#D83B7D;fill-opacity:.08"/></pattern>
@@ -887,6 +900,45 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   menu.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false);});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){setMenu(false);mb.focus();}});
   document.addEventListener('click',e=>{if(menu.classList.contains('open')&&!e.target.closest('.top'))setMenu(false);});
+
+  /* ---- globos animados de fondo (Inicio) ---- */
+  const NS='http://www.w3.org/2000/svg';
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const live=[...document.querySelectorAll('[data-view="inicio"] svg.pat')].map(svg=>{
+    const rect=svg.querySelector('rect'); const m=rect&&(rect.getAttribute('fill')||'').match(/#([\w-]+)/);
+    const u=m&&document.querySelector('#'+m[1]+' use'); if(!u) return null;
+    return {svg,rect,style:u.getAttribute('style'),w:0,h:0};
+  }).filter(Boolean);
+  function drawLive(L){
+    const W=Math.ceil(L.svg.clientWidth), H=Math.ceil(L.svg.clientHeight);
+    if(!W||!H||(W===L.w&&H===L.h)) return;
+    L.w=W;L.h=H;
+    const g=document.createElementNS(NS,'g'); g.setAttribute('style',L.style.replace('fill-opacity:.07','fill-opacity:.11'));
+    let i=0;
+    for(let y=0;y<H;y+=112) for(let x=0;x<W;x+=140){
+      const cell=document.createElementNS(NS,'g'); cell.setAttribute('transform',`translate(${x} ${y})`);
+      [['pb-g1','gb'],['pb-g2','gb'],['pb-s1','gs'],['pb-s2','gs']].forEach(([id,cl])=>{
+        const wrap=document.createElementNS(NS,'g'); wrap.setAttribute('class','gp');
+        wrap.style.setProperty('--pd',(Math.min(i,40)*.025+rnd(0,.3)).toFixed(2)+'s');
+        const el=document.createElementNS(NS,'use'); el.setAttribute('href','#'+id); el.setAttribute('class',cl);
+        el.style.setProperty('--d',(cl==='gb'?rnd(3.2,6.5):rnd(2.2,4.2)).toFixed(2)+'s');
+        el.style.setProperty('--dl',(-rnd(0,6)).toFixed(2)+'s');
+        el.style.setProperty('--r',(rnd(-9,9)).toFixed(1)+'deg');
+        wrap.appendChild(el); cell.appendChild(wrap);
+      });
+      g.appendChild(cell); i++;
+    }
+    const old=L.svg.querySelector('g.livegrid'); if(old) old.remove();
+    g.setAttribute('class','livegrid'); L.svg.appendChild(g);
+    L.rect.style.display='none'; L.svg.classList.add('live');
+  }
+  if(!reduce&&live.length){
+    const drawAll=()=>live.forEach(drawLive);
+    let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(drawAll,200)});
+    window.addEventListener('hashchange',()=>setTimeout(drawAll,50));
+    drawAll();
+  }
   window.addEventListener('hashchange',route);
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&a.getAttribute('href')===location.hash){e.preventDefault();route();}});
   route();
