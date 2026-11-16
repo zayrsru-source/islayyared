@@ -450,7 +450,9 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 .sh-prev img{display:block;width:100%;height:100%;object-fit:cover}
 .sh-load{position:absolute;inset:0;display:grid;place-items:center;color:var(--blanco);font-size:15px;text-align:center;padding:12px}
 .sh-steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:18px;font-size:16px;line-height:1.5}
-.sh-steps li::marker{font:italic 400 22px var(--f-tit);color:var(--rosa)}
+.sh-sub{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px;list-style:disc}
+.sh-sub li::marker{font:inherit;color:var(--rosa)}
+.sh-steps>li::marker{font:italic 400 22px var(--f-tit);color:var(--rosa)}
 .sh-b{display:flex;margin-top:10px;justify-content:center;width:100%}
 .sh-b[disabled]{opacity:.5;cursor:wait}
 .sh-note{font-size:14px;color:var(--vino-70);margin-top:12px}
@@ -930,9 +932,16 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
       <div class="sh-prev"><img id="st-img" alt="Vista previa de la imagen para historia"><p class="sh-load" id="st-load">Preparando la imagen…</p></div>
       <div class="sh-side">
         <ol class="sh-steps">
-          <li><b>Copia la liga</b> de la publicación.<button class="btn btn-o sh-b" type="button" id="st-copy"><svg><use href="#share"/></svg><span>Copiar liga</span></button></li>
+          <li><b>Copia la liga</b> de la publicación. La vas a pegar en Instagram.<button class="btn btn-o sh-b" type="button" id="st-copy"><svg><use href="#share"/></svg><span>Copiar liga</span></button></li>
           <li><b>Comparte la imagen</b> y en Instagram elige <b>Historia</b>.<button class="btn btn-r sh-b" type="button" id="st-share" disabled><svg><use href="#story"/></svg><span>Compartir imagen</span></button><a class="btn btn-o sh-b" id="st-save" download="la-red-historia.png" hidden><span>Guardar imagen</span></a></li>
-          <li>En la historia toca el ícono de <b>stickers</b>, elige <b>Enlace</b>, pega la liga y ponlo sobre el espacio blanco. Al tocarlo, tus seguidores llegan a la publicación.</li>
+          <li><b>Agrega el enlace en Instagram.</b> La imagen no trae el enlace: se pone con un sticker.
+            <ul class="sh-sub">
+              <li>Arriba toca el ícono de <b>stickers</b> (la carita cuadrada).</li>
+              <li>Elige <b>Enlace</b> y pega la liga.</li>
+              <li>Si quieres, cambia el texto del sticker a <b>Leer el blog</b>, y toca <b>Listo</b>.</li>
+              <li>Pon el sticker en el espacio vacío, abajo del texto, y publica.</li>
+            </ul>
+          </li>
         </ol>
         <p class="sh-note" id="st-note"></p>
       </div>
@@ -1134,11 +1143,6 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     x.font='400 40px '+SAN;x.fillStyle='#F9E2EC';
     let E=wrap(x,rest,900);if(E.length>4){E=E.slice(0,4);E[3]=E[3].replace(/\s+\S*$/,'').replace(/[,;:.]+$/,'')+'…'}
     y+=34;E.forEach(ln=>{x.fillText(ln,90,y);y+=58});
-    // espacio para el sticker de enlace
-    const sy=Math.max(y+70,1290);
-    x.strokeStyle='rgba(255,255,255,.55)';x.lineWidth=4;x.setLineDash([18,14]);
-    x.beginPath();x.roundRect(240,sy,600,150,75);x.stroke();x.setLineDash([]);
-    x.fillStyle='rgba(255,255,255,.75)';x.font='400 34px '+SAN;x.textAlign='center';x.fillText('Toca el enlace y léelo completo',540,sy+88);x.textAlign='left';
     // pie
     x.fillStyle='#D83B7D';x.beginPath();x.roundRect(60,1600,960,230,48);x.fill();
     bubbles(x,96,1640,1.6);
