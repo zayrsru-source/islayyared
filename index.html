@@ -398,6 +398,42 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 @keyframes bob{0%{transform:translateY(3px) rotate(0)}100%{transform:translateY(-13px) rotate(var(--r,4deg))}}
 @keyframes twk{0%,100%{transform:scale(.55) rotate(0);opacity:.35}50%{transform:scale(1.25) rotate(45deg);opacity:1}}
 @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* v1.5: blog como red social */
+.feed-band>.w{padding-block:clamp(40px,6vw,72px)}
+.feed{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.feed-head{display:flex;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1.5px solid var(--linea)}
+.av{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 2.5px var(--blanco),0 0 0 5px var(--rosa)}
+.av-lg{width:84px;height:84px;box-shadow:0 0 0 3px var(--blanco),0 0 0 6.5px var(--rosa)}
+.fh-tx{min-width:0}
+.fh-nm{font:400 40px/1 var(--f-tit)}
+.fh-hd{font-size:15px;color:var(--vino-70);margin-top:6px}
+.post{background:var(--blanco);border:1.5px solid var(--linea);border-radius:28px;padding:22px 24px 14px;display:flex;flex-direction:column;gap:16px;scroll-margin-top:96px;animation:rise .7s var(--e-caida) both}
+.post:target{border-color:var(--rosa);box-shadow:0 0 0 4px var(--rosa-claro)}
+.post-hd{display:flex;align-items:center;gap:14px;min-width:0}
+.ph-tx{min-width:0;flex:1}
+.ph-nm{display:flex;align-items:center;gap:6px;font:700 17px/1.2 var(--f-txt)}
+.ph-ok{width:15px;height:15px;fill:var(--rosa);flex:none}
+.ph-mt{font-size:14px;color:var(--vino-70);margin-top:3px;white-space:nowrap}
+.ph-tag{font:700 12px/1 var(--f-txt);padding:8px 12px;border-radius:999px;background:var(--naranja-claro);color:var(--vino);white-space:nowrap;flex:none}
+.post-bd{display:flex;flex-direction:column;gap:14px;font-size:18px;line-height:1.6;max-width:62ch;overflow-wrap:break-word}
+.post-bd p:first-child{font:400 clamp(40px,4.4vw,44px)/1.08 var(--f-tit);color:var(--vino);text-wrap:balance}
+.post-ft{display:flex;align-items:center;flex-wrap:wrap;gap:6px;border-top:1.5px solid var(--linea);padding-top:10px}
+.pa{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--vino);font:700 15px/1 var(--f-txt);padding:11px 14px;border-radius:999px;text-decoration:none;cursor:pointer}
+.pa svg{width:17px;height:17px}
+.pa:hover{background:var(--rosa-claro);color:var(--rosa)}
+.pa-tag{margin-left:auto;font:700 14px/1 var(--f-txt);color:var(--rosa);padding-right:6px}
+@media (max-width:600px){
+  .feed-head{gap:12px}
+  .av-lg{width:68px;height:68px}
+  .post{padding:18px 16px 10px;border-radius:24px}
+  .post-hd{flex-wrap:wrap}
+  .ph-tx{flex:1 1 calc(100% - 66px)}
+  .ph-tag{order:3;margin-left:66px}
+  .post-bd{font-size:17px}
+  .pa{padding:11px 10px}
+  .pa-tag{margin-left:0;width:100%;padding:4px 10px 6px}
+}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
@@ -418,6 +454,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   <symbol id="foto-r" viewBox="0 0 120 90" preserveAspectRatio="xMidYMid slice"><rect width="120" height="90" fill="#F9E2EC"/><circle cx="24" cy="22" r="11" fill="#F8A43A"/><rect y="72" width="120" height="18" fill="#D4D2D6"/><circle cx="62" cy="40" r="12" fill="#D83B7D"/><path d="M38 90Q38 56 62 56Q86 56 86 90Z" fill="#D83B7D"/></symbol>
   <symbol id="wa" viewBox="0 0 16 16"><path d="M8 1.6c3.6 0 6.4 2.5 6.4 5.6S11.6 12.8 8 12.8c-.7 0-1.4-.1-2-.3L2.4 14l1-2.9C2.3 10.1 1.6 8.7 1.6 7.2 1.6 4.1 4.4 1.6 8 1.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="mail" viewBox="0 0 16 16"><rect x="1.8" y="3.2" width="12.4" height="9.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.4 4.4 8 8.8l5.6-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="share" viewBox="0 0 16 16"><path d="M8 10V2M5 5l3-3 3 3M3 8.5V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>
 
@@ -736,12 +773,54 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     <div class="w stack" style="gap:24px">
       <p class="eb">Blog</p>
       <h1 class="h1">Lo que platicamos, ahora <em>por escrito</em>.</h1>
-      <p class="lead">Estamos preparando el blog de La RED. Un tema al mes, contado por las dos y con más calma que en un reel.</p>
-      <span class="stk n" style="align-self:flex-start">Muy pronto ✦</span>
+      <p class="lead">El blog de La RED. Un tema al mes, contado por las dos y con más calma que en un reel.</p>
+      <a class="stk n" href="#post-1" style="align-self:flex-start;text-decoration:none">Ya salió la primera ✦</a>
     </div>
   </section>
 
-  <section class="band">
+
+  <section class="band feed-band">
+    <div class="w">
+      <div class="feed">
+        <div class="feed-head">
+          <img class="av av-lg" src="img/perfil-islayyared.jpg" alt="Isla y Yared sonriendo, sentadas juntas" width="240" height="240">
+          <div class="fh-tx">
+            <p class="fh-nm">Isla y Yared</p>
+            <p class="fh-hd">@islayyared · Amistad, conversaciones y primeras veces.</p>
+          </div>
+        </div>
+
+        <!--
+          NUEVA PUBLICACIÓN: copia un <article class="post"> completo y pégalo
+          ARRIBA del más reciente. Cambia id (post-2, post-3…), la fecha,
+          la etiqueta y los párrafos. El botón Comentar lleva el título en el mensaje.
+        -->
+
+        <article class="post" id="post-1" data-title="¿Cuándo fue la última vez que hiciste algo por primera vez?">
+          <header class="post-hd">
+            <img class="av" src="img/perfil-islayyared.jpg" alt="" width="240" height="240">
+            <div class="ph-tx">
+              <p class="ph-nm">Isla y Yared <svg class="ph-ok" aria-label="Cuenta oficial"><use href="#chispa"/></svg></p>
+              <p class="ph-mt">@islayyared · <time datetime="2026-11-15">15 nov 2026</time></p>
+            </div>
+            <span class="ph-tag">Primeras veces</span>
+          </header>
+          <div class="post-bd">
+            <p>¡Hola! ¿Cuándo fue la última vez que hiciste algo por primera vez?</p>
+            <p>Si tuviste que pensarlo mucho, este espacio es para ti. Y si la respuesta es "ayer", también: aquí vas a encontrar con quién contarlo. Aquí compartiremos pensamientos, nuevas aventuras, malos momentos e ilusiones de la vida.</p>
+            <p>Bienvenidos a La RED. Somos IsLA &amp; YaRED, dos amigas, y este es nuestro primer blog. Sí, también es una primera vez.</p>
+          </div>
+          <footer class="post-ft">
+            <a class="pa" data-comment href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Le%C3%AD%20su%20blog%20y%20quiero%20comentarles%3A" target="_blank" rel="noopener"><svg><use href="#wa"/></svg>Comentar</a>
+            <button class="pa" type="button" data-share><svg><use href="#share"/></svg><span>Compartir</span></button>
+            <span class="pa-tag">#PrimerasVeces</span>
+          </footer>
+        </article>
+
+      </div>
+    </div>
+  </section>
+  <section class="band bg-l">
     <div class="w stack" style="gap:32px">
       <div class="hd"><p class="eb">Los temas que vienen</p><h2 class="h2">De esto vamos a <em>escribir</em>.</h2></div>
       <div class="chips"><span class="chip fv">Primeras veces</span><span class="chip fn">La amistad</span><span class="chip fl">Salud y edad</span><span class="chip fv">Salud mental</span><span class="chip fill">Salud sexual</span><span class="chip fn">Finanzas</span><span class="chip fl">Relaciones</span><span class="chip fv">Deporte, pasatiempos y diversión</span></div>
@@ -750,7 +829,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
 
   <section class="band bg-p">
     <div class="w soon">
-      <article class="card"><span class="stk n" style="align-self:flex-start">Aviso</span><h3>Entérate cuando salga</h3><p>Escríbenos y te avisamos por WhatsApp en cuanto publiquemos la primera entrada.</p><a class="lnk" href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Av%C3%ADsenme%20cuando%20salga%20el%20blog%20de%20La%20RED." target="_blank" rel="noopener">Avísenme del blog</a></article>
+      <article class="card"><span class="stk n" style="align-self:flex-start">Aviso</span><h3>Entérate de la próxima</h3><p>Escríbenos y te avisamos por WhatsApp cada vez que publiquemos algo nuevo.</p><a class="lnk" href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Av%C3%ADsenme%20cuando%20publiquen%20algo%20nuevo%20en%20el%20blog%20de%20La%20RED." target="_blank" rel="noopener">Avísenme del blog</a></article>
       <article class="card"><span class="stk r" style="align-self:flex-start">Tu idea</span><h3>Propón un tema</h3><p>Si hay algo de lo que quieres que escribamos, cuéntanos. Lo platicamos entre las dos.</p><a class="lnk" href="https://wa.me/5218134075051?text=%C2%A1Hola%2C%20IsLA%20%26%20YaRED%21%20Me%20gustar%C3%ADa%20que%20en%20el%20blog%20escribieran%20sobre%3A%20" target="_blank" rel="noopener">Proponer un tema</a></article>
     </div>
   </section>
@@ -758,7 +837,7 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
   <section class="band bg-r cta">
     <svg class="pat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#pat-r)"/></svg>
     <div class="w">
-      <h2 class="h2" style="max-width:16ch">Mientras tanto, <em>la plática sigue.</em></h2>
+      <h2 class="h2" style="max-width:16ch">Aquí no se acaba: <em>la plática sigue.</em></h2>
       <a class="btn btn-n" href="#unete">Únete a La RED <svg><use href="#arrow"/></svg></a>
     </div>
   </section>
@@ -878,6 +957,8 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     let h=(location.hash||'').replace('#','');
     const join=h==='unete';
     if(join) h='inicio';
+    const post=/^post-\d+$/.test(h)?h:null;
+    if(post) h='blog';
     if(!names.includes(h)) h='inicio';
     views.forEach(v=>{
       const on=v.dataset.view===h;
@@ -885,7 +966,10 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
       else if(!on) v.hidden=true;
     });
     navs.forEach(a=>{if(a.dataset.nav===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    if(join){
+    if(post){
+      const el=document.getElementById(post);
+      if(el) requestAnimationFrame(()=>el.scrollIntoView({behavior:'smooth',block:'start'}));
+    }else if(join){
       const t=document.getElementById('unete-band');
       requestAnimationFrame(()=>{const y=t.getBoundingClientRect().top+window.scrollY-(document.querySelector('.top').offsetHeight);window.scrollTo({top:y,behavior:'smooth'});});
     }else{
@@ -939,6 +1023,19 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     window.addEventListener('hashchange',()=>setTimeout(drawAll,50));
     drawAll();
   }
+
+  /* ---- blog: comentar y compartir ---- */
+  document.querySelectorAll('.post').forEach(p=>{
+    const t=p.dataset.title||'', c=p.querySelector('[data-comment]');
+    if(c) c.href='https://wa.me/5218134075051?text='+encodeURIComponent('¡Hola, IsLA & YaRED! Leí su blog "'+t+'" y quiero comentarles: ');
+    const b=p.querySelector('[data-share]'); if(!b) return;
+    b.addEventListener('click',async()=>{
+      const url=location.origin+location.pathname+'#'+p.id, lbl=b.querySelector('span');
+      const say=m=>{lbl.textContent=m;setTimeout(()=>lbl.textContent='Compartir',2200)};
+      if(navigator.share){try{await navigator.share({title:t+' · La RED',text:t,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+      try{await navigator.clipboard.writeText(url);say('Liga copiada ✦')}catch(e){say('Copia la liga de arriba');history.replaceState(null,'','#'+p.id)}
+    });
+  });
   window.addEventListener('hashchange',route);
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&a.getAttribute('href')===location.hash){e.preventDefault();route();}});
   route();
