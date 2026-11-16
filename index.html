@@ -1131,22 +1131,26 @@ img.cover{display:block;height:auto;object-fit:cover;background:var(--niebla)}
     const tag='Nuevo en el blog ✦', tw=x.measureText(tag).width;
     x.fillStyle='#F8A43A';x.beginPath();x.roundRect(0,0,tw+64,78,39);x.fill();
     x.fillStyle='#6E1E32';x.fillText(tag,32,52);x.restore();
-    // titular
-    const paras=[...p.querySelectorAll('.post-bd p')].map(e=>e.textContent.trim());
-    const title=p.dataset.title||paras[0]||'';
-    let fs=104;x.font='400 '+fs+'px '+SER;let L=wrap(x,title,900);
-    while(L.length>6&&fs>72){fs-=6;x.font='400 '+fs+'px '+SER;L=wrap(x,title,900)}
-    let y=560;x.fillStyle='#FFFFFF';
-    L.forEach((ln,i)=>{if(i===L.length-1){x.font='italic 400 '+fs+'px '+SER;x.fillStyle='#F8A43A'}x.fillText(ln,90,y);y+=fs*1.04});
-    // extracto
-    const rest=(paras[0]&&paras[0].includes(title.slice(0,20))?paras.slice(1):paras).join(' ');
-    x.font='400 40px '+SAN;x.fillStyle='#F9E2EC';
-    let E=wrap(x,rest,900);if(E.length>4){E=E.slice(0,4);E[3]=E[3].replace(/\s+\S*$/,'').replace(/[,;:.]+$/,'')+'…'}
-    y+=34;E.forEach(ln=>{x.fillText(ln,90,y);y+=58});
+    // texto completo: primer párrafo como titular, los demás completos
+    const paras=[...p.querySelectorAll('.post-bd p')].map(e=>e.textContent.trim()).filter(Boolean);
+    const title=paras[0]||p.dataset.title||'', body=paras.slice(1);
+    const TOP=520, BOTTOM=1600-190; // deja espacio para el sticker de enlace
+    let fs=104, bs=42, TL, BL, total;
+    const layout=()=>{
+      x.font='400 '+fs+'px '+SER; TL=wrap(x,title,900);
+      x.font='400 '+bs+'px '+SAN; BL=body.map(t=>wrap(x,t,900));
+      total=TL.length*fs*1.04+30+BL.reduce((a,l)=>a+l.length*bs*1.42,0)+(BL.length-1)*bs*.7;
+    };
+    layout();
+    while(TOP+total>BOTTOM&&(fs>64||bs>28)){ if(fs>72&&fs*0.9>bs*1.6) fs-=4; else if(bs>28) bs-=1; else fs-=4; layout(); }
+    let y=TOP+fs*.2; x.fillStyle='#FFFFFF';
+    TL.forEach((ln,i)=>{x.font=(i===TL.length-1?'italic ':'')+'400 '+fs+'px '+SER;x.fillStyle=i===TL.length-1?'#F8A43A':'#FFFFFF';x.fillText(ln,90,y);y+=fs*1.04});
+    y+=30-fs*.2+bs; x.font='400 '+bs+'px '+SAN; x.fillStyle='#F9E2EC';
+    BL.forEach((lines,k)=>{lines.forEach(ln=>{x.fillText(ln,90,y);y+=bs*1.42}); y+=bs*.7});
     // pie
     x.fillStyle='#D83B7D';x.beginPath();x.roundRect(60,1600,960,230,48);x.fill();
     bubbles(x,96,1640,1.6);
-    x.fillStyle='#FFFFFF';x.font='400 34px '+SAN;x.fillText('Léelo completo en',300,1690);
+    x.fillStyle='#FFFFFF';x.font='400 34px '+SAN;x.fillText('Lee más en nuestro blog',300,1690);
     x.font='400 76px '+SER;x.fillText('islayyared.com',300,1772);
     const blob=await new Promise(r=>c.toBlob(r,'image/png'));
     return blob;
